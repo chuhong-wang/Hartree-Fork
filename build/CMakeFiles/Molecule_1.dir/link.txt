@@ -1,2 +1,0 @@
-/usr/bin/ar qc libMolecule_1.a CMakeFiles/Molecule_1.dir/src/molecule.cpp.o CMakeFiles/Molecule_1.dir/src/point.cpp.o
-/usr/bin/ranlib libMolecule_1.a

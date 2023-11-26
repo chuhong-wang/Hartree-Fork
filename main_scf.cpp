@@ -6,64 +6,27 @@
 #include <set> 
 #include <cstdio> 
 
-#include "Eigen/Dense"
-#include "Eigen/Eigenvalues"
-#include "Eigen/Core"
+#define INDEX(i,j) (i>j) ? (i+1)*i/2+j : (j+1)*j/2+i 
 
-#define BIGNUM 10000
-int ioff[BIGNUM]; 
-#define INDEX(i,j) (i>j) ? ioff[i]+j : ioff[j]+i // TODO: replace ioff[i] with (i+1)*i/2
 /**
  * ij = (i+1)*i/2 + j
- * (i+1)*i gets calculated multiple times -> we can store its value in `ioff` for fast lookup
+ * (i+1)*i gets calculated multiple times -> 
+ * we can also store its value in an pre-computed array for fast lookup
  * 
 */
-void initialize_ioff(){
-    ioff[0] = 0; 
-    for (auto i = 1;i!=BIGNUM; ++i) {
-        ioff[i] = ioff[i-1] + i; 
-    }
-}
-
-typedef Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor> Matrix; 
 
 int main() {
-    initialize_ioff(); // prepare ioff array for index permutation 
 
     auto scf = Scf("data/geom.dat", 0, 7); 
-    scf.read_energy_scalar();
-    scf.read_1e_integral("../data/s.dat", scf.S);
-    scf.read_1e_integral("../data/t.dat", scf.T);
-    scf.read_1e_integral("../data/v.dat", scf.V);
 
-    std::cout << "Core Hamiltonian" << std::endl; 
-    for (auto i = 0; i!= scf.mol.nao; ++i ){
-        for (auto j = 0; j!= scf.mol.nao; ++j ){
-            auto ij = i*scf.mol.nao + j; 
-            std::printf("%8.5f \t", scf.T[ij] + scf.V[ij]); 
-        }
-        std::cout << std::endl; 
-    } 
-    
-    /**
-     * store two-electron integral in a 1-D array, save space based on symmetry
-    */
-    scf.twoElectronIntegral();
-    // // print the two-electron integral in (ij, kl)
-    // std::cout << " two-electron integral ijkl 4D -> 2D (ij, kl) matrix "
-    // std::set<int> diagonal_idx; 
-    // int ij = scf.mol.nao*(scf.mol.nao-1)/2 + (scf.mol.nao-1); 
-    // for (auto i=0; i!=ij; ++i){
-    //     diagonal_idx.insert(i*(i+1)/2 +i ); 
-    //     std::cout << i*(i+1)/2 +i << std::endl; 
-    // }
-
-    // for (auto i = 0; i!=scf.ee.size(); ++i) {
-    //     // std::cout << scf.ee[i] << "\t"; 
-    //     printf("%8.5f \t", scf.ee[i]); 
-    //     if (diagonal_idx.find(i)!=diagonal_idx.end()) std::cout << std::endl; 
-    // }
-    
+    // std::cout << "Core Hamiltonian" << std::endl; 
+    // for (auto i = 0; i!= scf.mol.nao_; ++i ){
+    //     for (auto j = 0; j!= scf.mol.nao_; ++j ){
+    //         auto ij = i*scf.mol.nao + j; 
+    //         std::printf("%8.5f \t", scf.T[ij] + scf.V[ij]); 
+    //     }
+    //     std::cout << std::endl; 
+    // } 
 
     /**
      * diagonalization of overlap integral S 

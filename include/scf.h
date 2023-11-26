@@ -1,5 +1,4 @@
-#ifndef SCF_H
-#define SCF_H
+#pragma once 
 
 #include "molecule.h"
 #include <fstream> 
@@ -7,34 +6,27 @@
 #include <vector> 
 #include <memory> 
 
-using std::string, std::vector; 
+#include "Eigen/Dense"
+#include "Eigen/Eigenvalues"
+#include "Eigen/Core"
+typedef Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor> Matrix; 
 
 class Scf {
-    public:
+    private:
         Molecule mol; 
-        double neuc; 
-        vector<double> S; 
-        vector<double> T;
-        vector<double> V; 
-        vector<double> eri; 
-
-
+    public:
         // constructor 
         Scf() = default; 
-        Scf(string geom_file, int q, int n_ao); // charge and number of AO of the molecule
-        
-        // desctructor 
-        ~Scf(); 
+        Scf(std::string geom_file, int q, int n_ao); // charge and number of AO of the molecule
 
-        // functions for reading input data 
-        void read_energy_scalar(string filename = "data/enuc.dat"); // TODO: remove default val
-        // one-electron integrals 
-        void read_1e_integral(string filename, vector<double>& out_data); // 
-        // two-electron integrals 
-        void twoElectronIntegral(string filename, vector<double>&); 
+        Matrix orthogonalize_matrix(const Matrix &mat);
+        
+    private:
+        Matrix vector_to_Matrix(const std::vector<double> &vec); 
+        
+
 
 };
 
 
 
-#endif 

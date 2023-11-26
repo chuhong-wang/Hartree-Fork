@@ -1,7 +1,16 @@
 #include "include/molecule.h"
 #include <cstdio> 
+#include <iostream> 
 int main() {
-    Molecule m("data/geom.dat", 0); 
+    Molecule m("data/geom.dat", 0, 7); 
+    m.read_energy_scalar("data/enuc.dat"); 
+
+    m.read_1e_integral("int1e_overlap"); 
+    m.read_1e_integral("int1e_kinetic");
+    m.read_1e_integral("int1e_nuc"); 
+
+    m.read_2e_integral("data/eri.dat"); 
+
     m.print_coord(); 
     printf("interatomic bonds \n"); 
     for (auto i=0; i!=m.num_atoms(); ++i){
@@ -55,5 +64,6 @@ int main() {
     
     m.translate(-com.get_x(), -com.get_y(), -com.get_z()); 
     m.print_principal_mom_of_inertia(); 
+ 
     return 0; 
 }

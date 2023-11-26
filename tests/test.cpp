@@ -23,6 +23,16 @@ TEST(MoleculeTest, AngleTest) {
     // Add more test cases as needed
 }
 
+TEST(MoleculeTest, ReadIntegralTest) {
+    Molecule m("data/geom.dat", 0, 7);
+    m.read_1e_integral("int1e_overlap");
+    double expectedValue = 1.0;
+    double tolerance = 1e-5; 
+    EXPECT_NEAR(m.one_e_overlap_en()[0], expectedValue, tolerance); 
+    expectedValue = 0.236703936510848;
+    EXPECT_NEAR(m.one_e_overlap_en()[1], expectedValue, tolerance); 
+}
+
 // Add more test cases for other functions in a similar manner
 
 int main(int argc, char** argv) {

@@ -24,6 +24,7 @@ class Molecule {
     public:
     // member functions 
     int num_atoms() {return coords_.size(); }
+    int get_nao() {return nao_; }
     void print_coord();
     double bond(int atom1, int atom2) const; 
     double angle(int atom1, int atom2, int atom3) const; 

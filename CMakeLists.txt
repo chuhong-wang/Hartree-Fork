@@ -24,7 +24,7 @@ add_subdirectory(third_party/googletest)
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
 # Test execuatable
-file(GLOB TEST_SOURCES "tests/*.cpp")  # TODO: is `${SOURCES}` necessary here? as it will be linked to in the next step 
+file(GLOB TEST_SOURCES "tests/*.cpp") 
 add_executable(MoleculeTest ${TEST_SOURCES})
 
 # Link Google Test and source code to the test executable 

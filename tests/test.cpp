@@ -67,6 +67,8 @@ TEST(ScfTest, DensityTest){
     auto E0 = scf.SCF_energy(D0, h_core_, F0_pr); 
     EXPECT_NEAR(E0, -129.84539852990568, tolerance); 
 
+    
+
 }
 
 int main(int argc, char** argv) {

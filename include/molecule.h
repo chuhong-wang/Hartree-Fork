@@ -9,7 +9,7 @@ class Molecule {
     friend class Scf; 
     private:
     int charge_;
-    std::vector<int> zvals_; // atomic number of each atom
+    std::vector<int> zvals_; // atomic charge of each atom
     int nao_; // number of atomic orbitals 
     std::vector<std::vector<double>> coords_;
     std::string point_group_ ; 

@@ -37,16 +37,15 @@ class Scf {
 
         double SCF_energy(const Matrix &density, const Matrix &h_core_, const Matrix &F_uv); 
 
+        /** 
+         * transform AO two-electron integral to MO basis 
+         * conveniently, number of AO == number of MO 
+         */
+        std::vector<double> Noddy_algo(const Matrix& C0_AObasis) const; 
+
     private:
         // convert a flattened-matrix vector back to a 2D Matrix
         Matrix vector_to_Matrix(const std::vector<double> &vec); 
-       
-
-        
-
-
-
-        
 };
 
 

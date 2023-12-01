@@ -110,3 +110,34 @@ void Scf::update_Fork_matrix(const Matrix &h_core_, const Matrix &D, Matrix &ori
 double Scf::SCF_energy(const Matrix &density, const Matrix &h_core_, const Matrix &F_uv){
     return (density.array()*(h_core_ + F_uv).array()).sum(); 
 }
+
+std::vector<double> Scf::Noddy_algo(const Matrix& C0_AObasis) const{
+    int nao = mol.nao_; 
+    std::vector<double> eri_MO_(nao*(nao-1)*(nao-2)*(nao-3), 0); 
+    int i, j, k, l, ijkl; 
+    int p, q, r, s, pq, rs, pqrs; 
+
+    for(i=0,ijkl=0; i < nao; i++) {
+        for(j=0; j <= i; j++) {
+            for(k=0; k <= i; k++) {
+                for(l=0; l <= (i==k ? j : k); l++,ijkl++) {
+
+                    for(p=0; p < nao; p++) {
+                        for(q=0; q < nao; q++) {
+                            pq = INDEX(p,q);
+                            for(r=0; r < nao; r++) {
+                                for(s=0; s < nao; s++) {
+                                rs = INDEX(r,s);
+                                pqrs = INDEX(pq,rs);
+
+                                eri_MO_[ijkl] += C0_AObasis(p, i) * C0_AObasis(q, j) * C0_AObasis(r, k) * C0_AObasis(s, l) * mol.eri_[pqrs];
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return eri_MO_; 
+} 

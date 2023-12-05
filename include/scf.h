@@ -17,7 +17,7 @@ class Scf {
     public:
         // constructor 
         Scf() = default; 
-        Scf(std::string geom_file, int q, int n_ao); // charge and number of AO of the molecule
+        Scf(std::string geom_file, int q, std::string integral_file); // charge and number of AO of the molecule
 
         Matrix H_core(); 
         // S^(-1/2) = L_s * Λ_s^(-1/2) * L_s.T

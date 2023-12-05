@@ -44,7 +44,7 @@ class Molecule {
 
     // constructor
     Molecule() = default;  
-    Molecule(std::string filename, int q, int n_ao=0); // read from file with user specified charge
+    Molecule(std::string geomFile, int q, std::string integralFile); // read from file with user specified charge
     void read_1e_integral(std::string integral_type); 
     void read_2e_integral(std::string filename); 
     void read_energy_scalar(std::string filename);  // read nuclear repulsion energy 
@@ -54,6 +54,13 @@ class Molecule {
     double* m_cross_prod(double* vec1, double* vec2) const; 
     void file_to_vector(std::string filename, std::vector<double>& vec); 
     
+    /**
+     * @brief Reads and processes a file to set the value of `nao_`.
+     * This function reads the first string of the last line from the specified file
+     * and converts it to an integer, setting the value of `nao_` accordingly.
+     * @param filename The name of the file to be processed.
+     */
+    void processFile(std::string filename);  // read nao_ from .dat
 
 }; 
 

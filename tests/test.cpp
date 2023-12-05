@@ -4,7 +4,7 @@
 
 TEST(MoleculeTest, BondTest) {
     // Create a Molecule instance for testing
-    Molecule m("data/geom.dat", 0, 7);
+    Molecule m("data/geom.dat", 0, "data/s.dat");
 
     // Perform tests on the bond function
     double expectedValue = 2.0786985874367461; 
@@ -15,7 +15,7 @@ TEST(MoleculeTest, BondTest) {
 
 TEST(MoleculeTest, AngleTest) {
     // Create a Molecule instance for testing
-    Molecule m("data/geom.dat", 0, 7);
+    Molecule m("data/geom.dat", 0, "data/s.dat");
 
     // Perform tests on the angle function
     double expectedValue = 0.66322511575804732; 
@@ -25,7 +25,7 @@ TEST(MoleculeTest, AngleTest) {
 }
 
 TEST(MoleculeTest, ReadIntegralTest) {
-    Molecule m("data/geom.dat", 0, 7);
+    Molecule m("data/geom.dat", 0, "data/s.dat");
     m.read_1e_integral("int1e_overlap");
     double expectedValue = 1.0;
     double tolerance = 1e-5; 
@@ -35,7 +35,7 @@ TEST(MoleculeTest, ReadIntegralTest) {
 }
 
 TEST(ScfTest, OrthogonizationTest){
-    auto scf = Scf("data/geom.dat", 0, 7); 
+    auto scf = Scf("data/geom.dat", 0, "data/s.dat"); 
     auto s_sqrt_int = scf.orthogonalization_matrix((scf.get_molecule()).one_e_overlap_en()); 
     double tolerance = 1e-5; 
     EXPECT_NEAR(s_sqrt_int(0,0), 1.0236346, tolerance);
@@ -43,14 +43,14 @@ TEST(ScfTest, OrthogonizationTest){
 }
 
 TEST(ScfTest, HcoreTest){
-    auto scf = Scf("data/geom.dat", 0, 7); 
+    auto scf = Scf("data/geom.dat", 0, "data/s.dat"); 
     double tolerance = 1e-5; 
     auto h_core_ = scf.H_core(); 
     EXPECT_NEAR(h_core_(2,5), -1.6751501, tolerance); 
 }
 
 TEST(ScfTest, DensityTest){
-    auto scf = Scf("data/geom.dat", 0, 7); 
+    auto scf = Scf("data/geom.dat", 0, "data/s.dat"); 
     auto s_sqrt_int = scf.orthogonalization_matrix((scf.get_molecule()).one_e_overlap_en()); 
     
     double tolerance = 1e-5; 

@@ -19,16 +19,16 @@ typedef Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor> M
 using namespace std; 
 
 // constructor of Molecule from .dat file 
-Molecule::Molecule(string filename, int q, int n_ao): charge_(q), nao_(n_ao){
+Molecule::Molecule(string geomFile, int q, string integralFile): charge_(q){
     // read number of atoms and coordinates from file 
-    ifstream fin(filename); 
+    ifstream fin; 
+    fin.open(geomFile); 
+    if (!fin.is_open()) std::cerr << "reading geom file failed \n"; 
     string line_zero;
     getline(fin, line_zero); 
     istringstream is(line_zero); 
-
     int natom; 
     is >> natom; 
-
     string line; 
     double zval, coord_0, coord_1, coord_2; 
     for(auto i=0; i!=natom;++i) {
@@ -41,6 +41,23 @@ Molecule::Molecule(string filename, int q, int n_ao): charge_(q), nao_(n_ao){
         else cerr << "inconsistent natom and coordinates\n"; 
     }
     fin.close(); 
+    processFile(integralFile); 
+}
+
+void Molecule::processFile(std::string filename){
+    ifstream fin; 
+    fin.open(filename); 
+    if (!fin.is_open()) {
+        std::cout << "reading integral file failed \n"; 
+        return; 
+    }
+    
+    string last_line, line;
+    while (std::getline(fin, line)){last_line = line;} 
+
+    fin.close(); 
+    istringstream sin(last_line); 
+    sin >> nao_; 
 }
 
 

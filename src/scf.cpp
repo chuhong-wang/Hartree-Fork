@@ -8,7 +8,7 @@
 #define INDEX(i,j) (i>j) ? (i+1)*i/2+j : (j+1)*j/2+i 
 
 // constructor of Scf initializes its molecule 
-Scf::Scf(std::string geom_file, int q, int n_ao):mol(geom_file, q, n_ao) {
+Scf::Scf(std::string geom_file, int q, std::string integral_file):mol(geom_file, q, integral_file) {
     mol.read_1e_integral("int1e_overlap"); 
     mol.read_1e_integral("int1e_kinetic"); 
     mol.read_1e_integral("int1e_nuc"); 

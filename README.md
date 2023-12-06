@@ -1,35 +1,32 @@
 # C++ Quantum Chemistry Implementation
 
-This project is a C++ implementation of quantum chemistry calculations from scratch. This package is designed for studying the electronic structure of molecular systems.
-
-## Project Overview
-
-The goal of this project is to provide a C++ version of the core methods in quantum chemistry. This package enables electronic structure calculation of simple systems on a single-CPU. Computing efficiency will be benchmarked against pyscf. 
+This project is a C++ implementation of self-consistent field (SCF) calculations from scratch for educational purpose. Within this package we can directly see how the density matrix is initialize and converged. The evolution of electron density at each step of SCF is calculated and visualized. 
 
 ## Completed Functionality
 
 The current version of the project includes the following features:
 
 - **SCF Convergence:** Iterative self-consistent field (SCF) calculations with convergence criteria.
+    Different initialization of Density Matrix (D_m) 
+    - random initialized
+    - initialize at zero 
+    - use core Hamiltonian as initial guess of Fock Matrix 
+
 - **MP2 perturbation energy:** transform AO basis to MO basis and compute MP2 energy. 
 
 ## TODO: Work-in-Progress
 
 The project is actively being developed, and the following features are planned for implementation:
 
-- [ ] **Hartree-Fock Calculation:** The Hartree-Fock method is implemented for calculating the electronic ground state of molecular systems.
+- [ ] Geometry Optimization
 
-- [ ] **Geometry Optimization:** Basic geometry optimization functionality to find the equilibrium molecular structure.
+- [ ] Density Functional Theory (DFT) 
 
-- [ ] **Density Functional Theory (DFT):** Implement DFT methods for improved accuracy in electronic structure calculations.
+- [ ] Parallelization
 
-- [ ] **Post-SCF Methods:** Extend the functionality to include post-SCF methods such as correlated wave function methods (e.g., MP2, CCSD).
+- [ ] Improved Input/Output
 
-- [ ] **Parallelization:** Introduce parallel computing capabilities to enhance performance on multi-core systems.
-
-- [ ] **Improved Input/Output:** Enhance input and output handling for improved usability and compatibility.
-
-- [ ] **Documentation:** Provide comprehensive documentation to guide users and developers on utilizing and contributing to the project.
+- [ ] Documentation
 
 ## Getting Started
 

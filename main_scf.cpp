@@ -9,7 +9,7 @@
 
 #define INDEX(i,j) (i>j) ? (i+1)*i/2+j : (j+1)*j/2+i 
 
-int main() {
+int main(int argc, char *argv[]) {
 
     auto scf = Scf("data/geom.dat", 0, "data/s.dat"); 
 
@@ -22,13 +22,25 @@ int main() {
     auto C0_pr = scf.eigenVec_eigenVal(F0_pr).first; 
     auto C0_ = s_sqrt_int*C0_pr; 
 
-    Matrix D0(nao,nao); 
-    scf.update_density(C0_, ndocc, D0); 
-    double E0 = scf.SCF_energy(D0, h_core_, F0_pr); 
-    std::cout << E0 << std::endl; 
-    std::cout << "initial density matrix " << std::endl; 
-    std::cout << D0 << std::endl; 
     std::ofstream output;
+
+    Matrix D0(nao,nao);
+
+    if (argc > 1 && argv[1] == std::string("Hamiltonian")) {
+        scf.update_density(C0_, ndocc, D0); 
+        double E0 = scf.SCF_energy(D0, h_core_, F0_pr); 
+        std::cout << E0 << std::endl; 
+        std::cout << "initial density matrix " << std::endl; 
+        std::cout << D0 << std::endl; 
+    }
+    else if (argc > 0 && argv[0] == std::string("random")) {
+        Matrix D0 = Matrix::Random(nao,nao);
+    }
+
+    else if (argc > 0 && argv[0] == std::string("zero")) { }
+    
+    else {std::cerr << "illegal initialization param \n"; }
+    
     for(auto i = 0; i!=20; ++i){
 
         // write density matrix at each step to file

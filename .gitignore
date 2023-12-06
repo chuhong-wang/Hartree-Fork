@@ -4,3 +4,7 @@ a.out
 Testing/
 check_calculations_python/
 trash
+*.mat
+visualization/*.CHGCAR
+visualization/*.vesta
+visualization/data/

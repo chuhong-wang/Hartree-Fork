@@ -2,6 +2,8 @@
 
 This project is a C++ implementation of self-consistent field (SCF) calculations from scratch for educational purpose. Within this package we can directly see how the density matrix is initialize and converged. The evolution of electron density at each step of SCF is calculated and visualized. 
 
+![CH4](figures/ch4.gif)
+
 ## Completed Functionality
 
 The current version of the project includes the following features:
